@@ -1,0 +1,40 @@
+From 45605d5063e96d1b3229db8edac6f489bf29a382 Mon Sep 17 00:00:00 2001
+From: John W. Linville <linville@tuxdriver.com>
+Date: Tue, 29 Sep 2009 13:39:13 -0400
+Subject: [rfkill PATCH] default install to $(PREFIX)/sbin
+
+The rfkill utility isn't generally useful to normal users, so move it to
+/sbin with other system management executables.
+
+Signed-off-by: John W. Linville <linville@tuxdriver.com>
+---
+ Makefile |    6 +++---
+ 1 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index cda48c4..71a6082 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,7 +1,7 @@
+ MAKEFLAGS += --no-print-directory
+ 
+ PREFIX ?= /usr
+-BINDIR ?= $(PREFIX)/bin
++SBINDIR ?= $(PREFIX)/sbin
+ MANDIR ?= $(PREFIX)/share/man
+ 
+ MKDIR ?= mkdir -p
+@@ -48,8 +48,8 @@ check:
+ 
+ install: rfkill rfkill.1.gz
+ 	@$(NQ) ' INST rfkill'
+-	$(Q)$(MKDIR) $(DESTDIR)$(BINDIR)
+-	$(Q)$(INSTALL) -m 755 -t $(DESTDIR)$(BINDIR) rfkill
++	$(Q)$(MKDIR) $(DESTDIR)$(SBINDIR)
++	$(Q)$(INSTALL) -m 755 -t $(DESTDIR)$(SBINDIR) rfkill
+ 	@$(NQ) ' INST rfkill.1'
+ 	$(Q)$(MKDIR) $(DESTDIR)$(MANDIR)/man1/
+ 	$(Q)$(INSTALL) -m 644 -t $(DESTDIR)$(MANDIR)/man1/ rfkill.1.gz
+-- 
+1.6.2.5
+
